@@ -18,7 +18,7 @@ wisc.df <- read.csv("WisconsinCancer.csv")
 head(wisc.df)
 ```
 
-There are some funky things in this dataset that we will ignore for our analysis. This includes the ID, and Diagnosis columns and the funny last X column
+There are some funky things in this dataset that we will ignore for our analysis. This includes the ID, and Diagnosis columns and the funny last X column.
 
 ```{r}
 #convert the features of the data: wisc.data
