@@ -1,16 +1,11 @@
----
-title: "class07"
-author: "Kiana Munoz"
-date: "1/28/2020"
-output: github_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+class07
+================
+Kiana Munoz
+1/28/2020
 
 Functions are here
-```{r}
+
+``` r
 is_both_na <- function(x, y) {
   if (length(x) != length(z)) {
     stop("your inputs are not the same length")
@@ -52,17 +47,33 @@ function(x, na.rm=TRUE, plot=FALSE, ...) {
 
   return(answer)
 }
-
 ```
 
-```{r}
+    ## function(x, na.rm=TRUE, plot=FALSE, ...) {
+    ##   # Our rescale function from the end of lecture 9
+    ## 
+    ##   if(na.rm) {
+    ##     rng <-range(x, na.rm=TRUE)
+    ##   } else {
+    ##     rng <-range(x)
+    ##   }
+    ## 
+    ##   answer <- (x - rng[1]) / (rng[2] - rng[1])
+    ##   if(plot) { 
+    ##     plot(answer, ...) 
+    ##   }
+    ## 
+    ##   return(answer)
+    ## }
+
+``` r
 x <- c( 1, 2, NA, 3, NA)
 y <- c(NA, 3, NA, 3, 4)
 z <- c(1,1)
 #is_both_na(x, z)
 ```
 
-```{r}
+``` r
 # Start with a simple version of the problem
 df1 <- data.frame(IDs=c("gene1", "gene2", "gene3"),
  exp=c(2,1,1),
@@ -72,28 +83,54 @@ df2 <- data.frame(IDs=c("gene2", "gene4", "gene3", "gene5"),
  stringsAsFactors=FALSE)
 ```
 
-
-```{r}
+``` r
 x <- df1$IDs
 y <- df2$IDs
 
 intersect(x, y)
-
-# x in y 
-x %in% y
-x
-x[x %in% y]
-
-#y in x
-y
-y %in% x
-y[y %in% x]
-
-
 ```
 
-```{r}
+    ## [1] "gene2" "gene3"
 
+``` r
+# x in y 
+x %in% y
+```
+
+    ## [1] FALSE  TRUE  TRUE
+
+``` r
+x
+```
+
+    ## [1] "gene1" "gene2" "gene3"
+
+``` r
+x[x %in% y]
+```
+
+    ## [1] "gene2" "gene3"
+
+``` r
+#y in x
+y
+```
+
+    ## [1] "gene2" "gene4" "gene3" "gene5"
+
+``` r
+y %in% x
+```
+
+    ## [1]  TRUE FALSE  TRUE FALSE
+
+``` r
+y[y %in% x]
+```
+
+    ## [1] "gene2" "gene3"
+
+``` r
 gene_intersect <- function(x, y) {
   cbind(x[x %in% y],  y[y %in% x])
 }
@@ -122,14 +159,37 @@ gene_intersect4 <- function(df1, df2, gene.colname = "IDs") {
 
 
 df1$IDs
+```
+
+    ## [1] "gene1" "gene2" "gene3"
+
+``` r
 df1[, "IDs"]
+```
+
+    ## [1] "gene1" "gene2" "gene3"
+
+``` r
 gene.colname = "IDs"
 df1[, gene.colname]  
+```
 
+    ## [1] "gene1" "gene2" "gene3"
+
+``` r
 x <- df1$IDs
 y <- df2$IDs
 gene_intersect(x, y)
+```
 
+    ##      [,1]    [,2]   
+    ## [1,] "gene2" "gene2"
+    ## [2,] "gene3" "gene3"
+
+``` r
 gene_intersect2(df1, df2)
 ```
 
+    ##     IDs exp   IDs exp "exp"
+    ## 2 gene2   1 gene2  -2   exp
+    ## 3 gene3   1 gene3   1   exp
