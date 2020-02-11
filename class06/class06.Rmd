@@ -1,0 +1,182 @@
+---
+title: 'Class 6: R Functions'
+author: "Kiana Munoz"
+date: "1/23/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Functions
+
+## Level 2 heading
+
+### Level 3 heading
+
+```{r}
+# Write notes inside chunk!!
+```
+
+**File import** (reading files into R). The main read function in base R is 'read.table()'
+
+```{r}
+read.table("test1.txt")
+read.table("test2.txt")
+read.table("test3.txt")
+```
+
+We need to add arguments to get this file imported
+```{r}
+t1 <- read.table("test1.txt" , sep = ",", header = TRUE)
+```
+
+```{r}
+t1 <- read.csv("test1.txt")
+```
+
+```{r}
+t2 <- read.table("test2.txt", sep = "$", header = TRUE)
+```
+
+```{r}
+t3 <- read.table("test3.txt", sep = "")
+```
+
+```{r}
+t1
+t2
+t3
+```
+
+# Back to Functions
+
+Our first example function
+
+```{r}
+add <- function(x, y = 1) {
+  # Sum of x and y
+  x + y 
+}
+```
+
+Let's try using this function
+
+```{r}
+add(1)
+```
+
+Working with vectors
+
+```{r}
+add(c(1, 2, 4))
+```
+
+```{r}
+add(c(1, 2, 4), 4)
+```
+
+```{r}
+rescale <- function(x) {
+ rng <-range(x)
+ (x - rng[1]) / (rng[2] - rng[1])
+}
+```
+
+```{r}
+rescale(1:10)
+```
+
+```{r}
+rescale(c(1, 2, NA, 3, 10))
+```
+
+```{r}
+x <- c(1, 2, NA, 3, 10)
+rng <- range(x)
+rng
+```
+
+```{r}
+rng <- range(x, na.rm = TRUE)
+rng
+```
+
+```{r}
+rescale2 <- function(x) {
+ rng <-range(x, na.rm = TRUE)
+ (x - rng[1]) / (rng[2] - rng[1])
+}
+```
+
+```{r}
+rescale2(c(1, 2, NA, 3, 10))
+```
+
+```{r}
+rescale3 <- function(x, na.rm=TRUE, plot=FALSE) {
+ rng <-range(x, na.rm=na.rm)
+ print("Hello")
+ answer <- (x - rng[1]) / (rng[2] - rng[1])
+ return(answer)
+ print("is it me you are looking for?")
+ if(plot) {
+ plot(answer, typ="b", lwd=4)
+ }
+ print("I can see it in ...")
+ return(answer)
+}
+```
+
+```{r}
+rescale3
+```
+
+Hands on section
+```{r}
+library(bio3d)
+s1 <- read.pdb("4AKE") # kinase with drug
+s2 <- read.pdb("1AKE") # kinase no drug
+s3 <- read.pdb("1E4Y") # kinase with drug
+
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s3, chain="A", elety="CA")
+
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor", helix.col = "white",  sheet.col = "white")
+```
+
+> Q1. What type of object is returned from read.pdb()
+
+It is a list of 8 
+
+```{r}
+class(s1)
+```
+
+```{r}
+str(s1)
+```
+
+```{r}
+aa321(s1$seqres)
+```
+
+```{r}
+#This will produce an extremely long line of information:
+#s1$atom
+```
+
+```{r}
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor", col = "blue", helix.col = "yellow", lwd = "4")
+points(s2.b, typ="l", col = "orange")
+points(s3.b, col = "red", typ="l", lwd = "1")
+```
+
