@@ -30,15 +30,15 @@ Q. What ‘component’ of your result object details
  - cluster center?
  
 ```{r}
-#Cluster size
-km$size
+# Cluster size
+#km$size
 ```
 ```{r}
-km$cluster
+#km$cluster
 ```
 ```{r}
-length(km$cluster)
-table(km$cluster)
+#length(km$cluster)
+#table(km$cluster)
 ```
  
  
