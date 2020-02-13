@@ -35,3 +35,44 @@ sum(stats$Proteins) / sum(stats$Total) * 100
 HIV-1 protease structures are in the current PDB?
 
 1289
+
+# Part 2
+
+Read a single PDB structure into R
+
+```{r}
+library(bio3d)
+
+pdb <- read.pdb("1hsg")
+pdb
+```
+
+```{r}
+attributes(pdb)
+```
+
+```{r}
+pdb$atom
+
+```
+
+## Select protein only atoms
+
+Here I will use the 'atom.select()'
+
+```{r}
+prot <- atom.select(pdb, "protein", value = TRUE)
+lig <- atom.select(pdb, "ligand", value = TRUE)
+
+```
+
+And write out these new PDB objets with the 'write.pdb()' function
+
+```{r}
+write.pdb(lig, file = "1hsg_ligand.pdb")
+write.pdb(prot, file = "1hsg_protein.pdb")
+
+```
+
+
+
