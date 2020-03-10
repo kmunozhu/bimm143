@@ -1,5 +1,4 @@
 ### Bioinformatics class: Bimm143)
- [Bioinformatics in drug discovery and design](https://github.com/kmunozhu/bimm143/tree/master/class13)
  
 This is my classwork from [BIMM-143](https://bioboot.github.io/bimm143_W20/) Winter 2020 quarter at UC San Diego.
 
